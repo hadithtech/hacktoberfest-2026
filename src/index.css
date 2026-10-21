@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Base ---------- */
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body {
+  background: #F3F2E9;
+  color: #3B3B3B;
+  font-family: 'Manrope', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+/* Arabic swaps the font; Latin words inside Arabic fall back to Manrope. */
+html[lang='ar'] body { font-family: 'IBM Plex Sans Arabic', 'Manrope', system-ui, sans-serif; }
+html[lang='ar'] h1, html[lang='ar'] h2, html[lang='ar'] h3 { letter-spacing: 0; }
+
+:focus-visible { outline: 2px solid #3B3B3B; outline-offset: 3px; }
+::selection { background: #C9B26B; color: #3B3B3B; }
+
+/* Emphasized words (written as *word* in content.js).
+   English: Instrument Serif italic. Arabic has no italic, so it gets weight instead. */
+.em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: 0.01em; }
+html[lang='ar'] .em { font-family: inherit; font-style: normal; font-weight: 500; }
+
+/* Code boxes always read left-to-right, even in Arabic. */
+.code { direction: ltr; text-align: left; unicode-bidi: isolate; }
+
+/* ---------- Scroll reveal: soft fade and rise ---------- */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { transition-duration: 0.01ms !important; animation: none !important; }
+}
