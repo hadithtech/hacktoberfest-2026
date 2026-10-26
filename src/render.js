@@ -1,5 +1,5 @@
 // Builds the page HTML from content.js. Each function = one section. No text is written here.
-import { links, logos, agenda, projects, leaderboard, stepCommands } from './content.js'
+import { links, logos, agenda, judges, projects, leaderboard, stepCommands } from './content.js'
 
 // "Your *first* pull" -> italic-serif word
 const rich = (s) => s.split('*').map((p, i) => (i % 2 ? `<span class="em">${p}</span>` : p)).join('')
@@ -93,7 +93,18 @@ const details = (t) => section('details', `${title(t.title)}
 const agendaSec = (t, lang) => section('agenda', `${title(t.title, t.text)}
   <ol class="relative ps-10"><span class="absolute inset-y-0 start-[5px] w-px bg-gold" aria-hidden="true"></span>${agenda.map((it) => `
     <li class="reveal relative pb-14"><span class="absolute -start-10 top-3 h-[11px] w-[11px] rounded-full border border-gold bg-cream" aria-hidden="true"></span>
-      <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-8"><span class="text-4xl font-light tabular-nums md:text-5xl">${it.time}</span><span class="text-lg">${it[lang]}</span></div></li>`).join('')}</ol>`)
+      <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-8"><span class="text-4xl font-light tabular-nums md:text-5xl">${it.time}${it.end ? `<span class="ms-2 text-base opacity-60">– ${it.end}</span>` : ''}</span><span class="text-lg">${it[lang]}</span></div></li>`).join('')}</ol>`)
+
+// Judges: one card each. GitHub photo when a username is set, initials otherwise.
+const initials = (n) => n.split(/[\s-]+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('').toUpperCase()
+const judgesSec = (t) => section('judges', `${title(t.title, t.sub)}
+  <ul class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">${judges.map((j, i) => `
+    <li ${rv((i % 4) * 100)} class="reveal flex flex-col items-center border border-gold bg-white px-6 py-10 text-center">
+      ${j.github
+        ? `<img src="https://github.com/${j.github}.png?size=192" alt="" width="96" height="96" loading="lazy" class="h-24 w-24 rounded-full border border-gold object-cover">`
+        : `<span class="flex h-24 w-24 items-center justify-center rounded-full border border-gold bg-gold/10 text-3xl font-light" dir="ltr" aria-hidden="true">${initials(j.name)}</span>`}
+      <h3 class="mt-6 text-xl font-medium" dir="ltr">${j.name}</h3>
+      ${j.github ? `<a dir="ltr" href="https://github.com/${j.github}" ${ext} class="mt-2 inline-flex items-center gap-2 text-sm opacity-80 transition-opacity hover:opacity-100">${ghMark('h-4 w-4')}<span>@${j.github}</span></a>` : ''}</li>`).join('')}</ul>`)
 
 const guide = (t) => section('guide', `${title(t.title, t.lead)}
   <div class="border-b border-gold">${t.steps.map((s, i) => `
@@ -152,4 +163,4 @@ const footer = (t) => { const o = t.organizers, f = t.footer, a = 'transition-op
 }
 
 // The whole page, in order.
-export const renderPage = (t, lang) => navbar(t, lang) + `<main>${hero(t.hero)}${countdown(t.countdown)}${about(t.about)}${details(t.details)}${agendaSec(t.agenda, lang)}${guide(t.guide)}${projectsSec(t.projects, lang, t.ui.viewProject)}${leaderboardSec(t.leaderboard)}${lastYear(t.lastYear)}${partners(t.partners)}</main>` + footer(t)
+export const renderPage = (t, lang) => navbar(t, lang) + `<main>${hero(t.hero)}${countdown(t.countdown)}${about(t.about)}${details(t.details)}${agendaSec(t.agenda, lang)}${judgesSec(t.judges)}${guide(t.guide)}${projectsSec(t.projects, lang, t.ui.viewProject)}${leaderboardSec(t.leaderboard)}${lastYear(t.lastYear)}${partners(t.partners)}</main>` + footer(t)

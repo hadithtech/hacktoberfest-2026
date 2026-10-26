@@ -48,11 +48,28 @@ import replitLogo from '../public/images/logo-replit.png'
 export const logos = { hadithtech: hadithtechLogo, fsmvu: fsmvuLogo, replit: replitLogo }
 
 // AGENDA — the timeline shows every item in this list, in this order.
-// To add a session, copy one line, paste it below, and change the three values:
-//   time = the time shown, en = English title, ar = Arabic title.
+// To add a session, copy one line, paste it below, and change the values:
+//   time = start time (big), end = end time (small, optional),
+//   en = English title, ar = Arabic title.
 export const agenda = [
-  { time: '10:00', en: 'Event begins', ar: 'يبدأ الحدث' },
-  // { time: '11:00', en: 'Your session name', ar: 'اسم الجلسة' },
+  { time: '09:00', end: '09:30', en: 'Arrival & registration', ar: 'الوصول والتسجيل' },
+  { time: '09:30', end: '10:00', en: 'Breakfast', ar: 'الإفطار' },
+  { time: '10:00', end: '11:00', en: 'Program kickoff', ar: 'افتتاح البرنامج' },
+  { time: '11:00', end: '13:00', en: 'First coding session', ar: 'جلسة البرمجة الأولى' },
+  { time: '13:00', end: '14:00', en: 'Lunch break', ar: 'استراحة الغداء' },
+  { time: '14:00', end: '16:00', en: 'Second coding session', ar: 'جلسة البرمجة الثانية' },
+  { time: '16:00', end: '17:00', en: 'Project evaluation', ar: 'تقييم المشاريع' },
+  { time: '17:00', end: '18:00', en: 'Winner announcement & closing ceremony', ar: 'إعلان الفائزين والحفل الختامي' },
+]
+
+// JUDGES — shown as cards in the Judges section, in this order.
+// github = the username only (no link). Leave it empty ('') if there is none;
+// the card then shows the person's initials instead of a GitHub photo.
+export const judges = [
+  { name: 'Abdelrahman Ismail', github: 'ismail9k' },
+  { name: 'Abdurrahman Rajab', github: 'a0m0rajab' },
+  { name: 'Ahmad Al-Ali', github: '' },
+  { name: 'Jamal Mohafi', github: 'JamalMohafil' },
 ]
 
 // PROJECTS WALL — projects built on the day. Starts empty.
@@ -117,6 +134,7 @@ export const content = {
         { id: 'overview', label: 'Overview' },
         { id: 'details', label: 'Details' },
         { id: 'agenda', label: 'Agenda' },
+        { id: 'judges', label: 'Judges' },
         { id: 'guide', label: 'Guide' },
         { id: 'last-year', label: 'Past Edition' },
         { id: 'partners', label: 'Partners' },
@@ -190,7 +208,13 @@ export const content = {
     // 5. AGENDA (the timeline items come from `agenda` near the top of this file)
     agenda: {
       title: 'Agenda',
-      text: 'The event begins at 10:00. The full schedule will be announced here soon.',
+      text: 'Doors open at 09:00 and the program kicks off at 10:00. Here is how the day runs.',
+    },
+
+    // 5b. JUDGES (names come from `judges` near the top of this file)
+    judges: {
+      title: 'Meet the *judges*.',
+      sub: 'Every project is scored on design, UI/UX, functionality, creativity and technical implementation. Projects without a live demo will not be evaluated.',
     },
 
     // 6. FIRST PULL REQUEST IN FIVE STEPS
@@ -295,6 +319,7 @@ export const content = {
         { id: 'overview', label: 'نظرة عامة' },
         { id: 'details', label: 'التفاصيل' },
         { id: 'agenda', label: 'الجدول' },
+        { id: 'judges', label: 'لجنة التحكيم' },
         { id: 'guide', label: 'الدليل' },
         { id: 'last-year', label: 'النسخة السابقة' },
         { id: 'partners', label: 'الشركاء' },
@@ -352,7 +377,13 @@ export const content = {
     // 5. الجدول
     agenda: {
       title: 'الجدول',
-      text: 'يبدأ الحدث في الساعة العاشرة صباحاً. سيُعلن الجدول الكامل هنا قريباً.',
+      text: 'تُفتح الأبواب الساعة التاسعة صباحاً ويبدأ البرنامج الساعة العاشرة. هكذا يسير اليوم.',
+    },
+
+    // 5ب. لجنة التحكيم
+    judges: {
+      title: 'تعرّف على *لجنة التحكيم*.',
+      sub: 'يُقيَّم كل مشروع على التصميم، وتجربة المستخدم، والعمل الفعلي، والإبداع، والتنفيذ التقني. المشاريع التي لا تحتوي على عرض مباشر لن تُقيَّم.',
     },
 
     // 6. أول Pull Request في خمس خطوات
