@@ -135,7 +135,7 @@ const lastYear = (t) => section('last-year', `${title(t.title)}
   <div class="reveal mt-14"><p class="em max-w-3xl text-3xl leading-tight md:text-5xl md:leading-tight">${t.closing}</p>
     <a href="${links.lastYear}" ${ext} class="mt-8 inline-block border-b border-gold pb-1 text-lg transition-colors hover:bg-gold/15">${t.link}</a></div>`)
 
-// Partners: three identical cards (same height, padding, border). Each logo sits in a fixed-height
+// Partners: identical cards (same height, padding, border). Each logo sits in a fixed-height
 // frame and is scaled with object-contain, so wide and tall logos both stay undistorted.
 const partners = (t) => {
   const card = 'flex h-36 items-center justify-center border border-gold bg-white px-8 py-6 transition-shadow duration-500 hover:shadow-[0_8px_30px_rgba(201,178,107,0.28)] sm:h-40'
@@ -143,8 +143,10 @@ const partners = (t) => {
   return section('partners', `${title(t.title)}
   <ul class="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
     <li ${rv(0)} class="reveal ${card} gap-3 text-charcoal">${ghMark('h-10 w-10 shrink-0')}<span class="text-3xl font-semibold tracking-tight" dir="ltr">GitHub</span></li>
-    <li ${rv(100)} class="reveal ${card}">${logo(logos.replit, t.names.replit, 'h-10')}</li>
-    <li ${rv(200)} class="reveal ${card}">${logo(logos.fsmvu, t.names.fsmvu, 'h-[5.5rem]')}</li></ul>`)
+    <li ${rv(100)} class="reveal ${card} text-charcoal"><span class="text-3xl font-semibold tracking-tight" dir="ltr">${t.names.hacktoberfest}</span></li>
+    <li ${rv(200)} class="reveal"><a href="${links.mlh}" ${ext} class="${card} text-charcoal"><span class="text-4xl font-bold tracking-tight" dir="ltr">${t.names.mlh}</span></a></li>
+    <li ${rv(300)} class="reveal ${card}">${logo(logos.replit, t.names.replit, 'h-10')}</li>
+    <li ${rv(400)} class="reveal ${card}">${logo(logos.fsmvu, t.names.fsmvu, 'h-[5.5rem]')}</li></ul>`)
 }
 
 const footer = (t) => { const o = t.organizers, f = t.footer, a = 'transition-opacity hover:opacity-60'
@@ -158,6 +160,7 @@ const footer = (t) => { const o = t.organizers, f = t.footer, a = 'transition-op
       <li><a class="${a}" href="${links.hadithtech}" ${ext}>${f.links.website}</a></li>
       <li><a class="${a} inline-flex items-center gap-2" href="${links.github}" ${ext}>${ghMark('h-4 w-4')}<span>${f.links.github}</span></a></li>
       <li><a class="${a}" href="${links.linkedin}" ${ext}>${f.links.linkedin}</a></li>
+      <li><a class="${a}" href="${links.mlhEvent}" ${ext}>${f.links.mlh}</a></li>
       <li><a class="${a}" href="${links.register}" ${ext}>${f.links.register}</a></li></ul></div>
     <p class="mx-auto max-w-6xl px-6 pb-10 text-sm opacity-70 sm:px-10">${f.copyright}</p></div></footer>`
 }

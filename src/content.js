@@ -31,6 +31,10 @@ export const links = {
   linkedin: 'https://www.linkedin.com/company/hadith-tech/',
   // Website of the past edition's event
   lastYear: 'https://hackathon.hadithtech.com',
+  // This event's page on MLH (the MLH partner card links here)
+  mlh: 'https://www.mlh.com/events/hacktoberfest-hack-day-istanbul-x-hadith-tech',
+  // This event on MLH's events site (linked in the footer)
+  mlhEvent: 'https://events.mlh.com/events/15351-hacktoberfest-hack-day-istanbul-x-hadith-tech',
   // Where participants send their project. LEAVE EMPTY ('') to hide the
   // "Submit your project" button. Paste a link between the quotes to show it.
   submission: '',
@@ -272,7 +276,7 @@ export const content = {
     partners: {
       title: 'Our partners',
       // Names used as accessible text for each logo
-      names: { github: 'GitHub', replit: 'Replit', fsmvu: 'FSMVU Syrian Students Community' },
+      names: { github: 'GitHub', hacktoberfest: 'Hacktoberfest', mlh: 'MLH', replit: 'Replit', fsmvu: 'FSMVU Syrian Students Community' },
     },
 
     // 11. ABOUT THE ORGANIZERS + FOOTER
@@ -285,7 +289,7 @@ export const content = {
     },
     footer: {
       // Footer links (the URLs come from `links` at the top of this file)
-      links: { website: 'hadithtech.com', github: 'GitHub', linkedin: 'LinkedIn', register: 'Register' },
+      links: { website: 'hadithtech.com', github: 'GitHub', linkedin: 'LinkedIn', register: 'Register', mlh: 'MLH' },
       copyright: '© 2026 HadithTech. An independent community event celebrating Hacktoberfest.',
     },
   },
@@ -433,7 +437,7 @@ export const content = {
     // 10. الشركاء
     partners: {
       title: 'شركاؤنا',
-      names: { github: 'GitHub', replit: 'Replit', fsmvu: 'مجتمع الطلاب السوريين في جامعة السلطان محمد الفاتح' },
+      names: { github: 'GitHub', hacktoberfest: 'Hacktoberfest', mlh: 'MLH', replit: 'Replit', fsmvu: 'مجتمع الطلاب السوريين في جامعة السلطان محمد الفاتح' },
     },
 
     // 11. المنظّمون والتذييل
@@ -444,7 +448,7 @@ export const content = {
       link: 'زُر hadithtech.com',
     },
     footer: {
-      links: { website: 'hadithtech.com', github: 'GitHub', linkedin: 'LinkedIn', register: 'سجّل' },
+      links: { website: 'hadithtech.com', github: 'GitHub', linkedin: 'LinkedIn', register: 'سجّل', mlh: 'MLH' },
       copyright: '© 2026 حديث تقني. فعالية مجتمعية مستقلة احتفاءً بهاكتوبرفيست.',
     },
   },
