@@ -18,6 +18,8 @@ const title = (t, sub) => `<div ${rv()} class="reveal mb-12 md:mb-16">
   ${sub ? `<p class="mt-6 max-w-xl text-lg leading-relaxed opacity-80">${sub}</p>` : ''}</div>`
 const callout = (t) => `<p class="reveal mt-14 max-w-2xl border-s border-gold ps-6 text-xl leading-relaxed md:text-2xl md:font-light">${t}</p>`
 const empty = (t) => `<p class="reveal border-y border-gold py-14 text-xl font-light md:text-2xl">${t}</p>`
+// Nav links scroll to a home section, except the guide, which has its own page (#/guide).
+const navHref = (id) => (id === 'guide' ? '#/guide' : `#${id}`)
 const ghMark = (c) => `<svg viewBox="0 0 16 16" class="${c}" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>`
 
 function navbar(t, lang) {
@@ -25,7 +27,7 @@ function navbar(t, lang) {
   return `<header class="sticky top-0 z-40 border-b border-gold bg-cream">
   <nav class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6 sm:px-10" aria-label="Main">
     <a href="#top" class="flex shrink-0 items-center gap-3"><img src="${logos.hadithtech}" alt="" width="21" height="34" class="h-9 w-auto shrink-0 object-contain"><span class="text-base font-medium tracking-tight">${t.ui.brand}</span></a>
-    <ul class="ms-auto hidden items-center gap-8 text-[15px] lg:flex">${t.nav.links.map((l) => `<li><a href="#${l.id}" class="transition-opacity hover:opacity-60">${l.label}</a></li>`).join('')}</ul>
+    <ul class="ms-auto hidden items-center gap-8 text-[15px] lg:flex">${t.nav.links.map((l) => `<li><a href="${navHref(l.id)}" class="transition-opacity hover:opacity-60">${l.label}</a></li>`).join('')}</ul>
     <div class="ms-auto flex items-center gap-4 lg:ms-0">
       <div dir="ltr" role="group" aria-label="${t.ui.switchTo}" class="flex items-center">${sw('en', 'EN')}<span class="h-3.5 w-px bg-gold"></span><span class="font-arabic">${sw('ar', 'عربي')}</span></div>
       ${btn(links.register, t.nav.register, false, 'hidden !px-5 !py-2.5 lg:inline-flex')}
@@ -34,7 +36,7 @@ function navbar(t, lang) {
     </div>
   </nav>
   <div id="mobile-menu" hidden class="border-t border-gold bg-cream px-6 pb-8 pt-4 lg:hidden">
-    <ul>${t.nav.links.map((l) => `<li class="border-b border-gold/40"><a href="#${l.id}" class="block py-4 text-xl font-light">${l.label}</a></li>`).join('')}</ul>
+    <ul>${t.nav.links.map((l) => `<li class="border-b border-gold/40"><a href="${navHref(l.id)}" class="block py-4 text-xl font-light">${l.label}</a></li>`).join('')}</ul>
     ${btn(links.register, t.nav.register, false, 'mt-6 w-full')}
   </div></header>`
 }
@@ -166,4 +168,7 @@ const footer = (t) => { const o = t.organizers, f = t.footer, a = 'transition-op
 }
 
 // The whole page, in order.
-export const renderPage = (t, lang) => navbar(t, lang) + `<main>${hero(t.hero)}${countdown(t.countdown)}${about(t.about)}${details(t.details)}${agendaSec(t.agenda, lang)}${judgesSec(t.judges)}${guide(t.guide)}${projectsSec(t.projects, lang, t.ui.viewProject)}${leaderboardSec(t.leaderboard)}${lastYear(t.lastYear)}${partners(t.partners)}</main>` + footer(t)
+export const renderPage = (t, lang) => navbar(t, lang) + `<main>${hero(t.hero)}${countdown(t.countdown)}${about(t.about)}${details(t.details)}${agendaSec(t.agenda, lang)}${judgesSec(t.judges)}${projectsSec(t.projects, lang, t.ui.viewProject)}${leaderboardSec(t.leaderboard)}${lastYear(t.lastYear)}${partners(t.partners)}</main>` + footer(t)
+
+// The guide's own page (#/guide).
+export const renderGuidePage = (t, lang) => navbar(t, lang) + `<main>${guide(t.guide)}</main>` + footer(t)

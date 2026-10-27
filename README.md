@@ -153,7 +153,7 @@ hacktoberfest-2026/
 | File | Purpose |
 |------|---------|
 | `src/content.js` | **All visible text and data**, in one place. Contains shared data (links, event start time, logos, agenda, projects, leaderboard, step commands) and two parallel objects, `content.en` and `content.ar`, with identical structure. This is the file to edit for any wording change. |
-| `src/render.js` | Turns content into HTML. One small function per section (`navbar`, `hero`, `countdown`, `about`, `details`, `agendaSec`, `guide`, `projectsSec`, `leaderboardSec`, `lastYear`, `partners`, `footer`) plus helpers for buttons, titles, callouts and the GitHub icon. Contains layout and Tailwind classes but no wording. `renderPage` joins the sections in order. |
+| `src/render.js` | Turns content into HTML. One small function per section (`navbar`, `hero`, `countdown`, `about`, `details`, `agendaSec`, `guide`, `projectsSec`, `leaderboardSec`, `lastYear`, `partners`, `footer`) plus helpers for buttons, titles, callouts and the GitHub icon. Contains layout and Tailwind classes but no wording. `renderPage` joins the home sections in order; `renderGuidePage` draws the separate guide page. |
 | `src/main.js` | Starts the site: imports fonts and CSS, chooses the language (`?lang=` → saved choice → English), sets `lang`/`dir` on `<html>`, renders the page, runs the countdown every second, handles the language switch and mobile menu clicks, and triggers the scroll-reveal animation with `IntersectionObserver`. |
 | `src/index.css` | Tailwind layers plus a few global rules: page background and text colour, Arabic font swap, focus outline, text selection colour, the `.em` italic-accent style (italic serif in English, medium weight in Arabic), left-to-right code boxes, the `.reveal` fade animation and the reduced-motion override. |
 
@@ -219,7 +219,7 @@ Almost every change happens in **`src/content.js`**. Change only the text betwee
 | Overview title and subtitle | `about.overview` in each language |
 | Make a word italic-serif in a headline | Wrap it in `*stars*`, e.g. `Your first *pull request*` |
 
-Section ids used by the navbar: `overview`, `details`, `agenda`, `guide`, `last-year` (the **Past Edition** section; the id is internal and unchanged), `partners`.
+Section ids used by the navbar: `overview`, `details`, `agenda`, `guide`, `last-year` (the **Past Edition** section; the id is internal and unchanged), `partners`. The `guide` link is the exception: it opens the guide on its own page (`#/guide`) instead of scrolling.
 
 After editing, `npm run dev` updates automatically; for production run `npm run build`.
 

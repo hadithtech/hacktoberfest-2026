@@ -10,7 +10,7 @@ import '@fontsource/ibm-plex-sans-arabic/500.css'
 import '@fontsource/ibm-plex-sans-arabic/700.css'
 import './index.css'
 import { content, eventStart } from './content.js'
-import { renderPage } from './render.js'
+import { renderPage, renderGuidePage } from './render.js'
 
 const root = document.getElementById('root')
 
@@ -42,16 +42,21 @@ function tick() {
   box.querySelectorAll('[data-unit]').forEach((el) => { el.textContent = String(v[el.dataset.unit]).padStart(2, '0') })
 }
 
-// Draws the whole page in the current language.
+// Page: #/guide shows the guide on its own, anything else shows the home page.
+const pageNow = () => (location.hash === '#/guide' ? 'guide' : 'home')
+let page = pageNow()
+
+// Draws the current page in the current language.
 function render() {
   const t = content[lang]
   const html = document.documentElement
   html.lang = lang
   html.dir = lang === 'ar' ? 'rtl' : 'ltr'
-  document.title = t.meta.title
+  const guideLabel = t.nav.links.find((l) => l.id === 'guide').label
+  document.title = page === 'guide' ? `${guideLabel} | ${t.meta.title}` : t.meta.title
   document.querySelector('meta[name="description"]').setAttribute('content', t.meta.description)
   try { localStorage.setItem('lang', lang) } catch { /* ignore */ }
-  root.innerHTML = renderPage(t, lang)
+  root.innerHTML = page === 'guide' ? renderGuidePage(t, lang) : renderPage(t, lang)
   tick()
   document.querySelectorAll('.reveal').forEach((el) => (io ? io.observe(el) : el.classList.add('is-in')))
 }
@@ -64,6 +69,16 @@ root.addEventListener('click', (e) => {
   const menu = document.getElementById('mobile-menu')
   if (btn) { menu.hidden = !menu.hidden; btn.setAttribute('aria-expanded', String(!menu.hidden)); return }
   if (e.target.closest('#mobile-menu a')) menu.hidden = true
+})
+
+// Switching pages: redraw, then go to the top (guide) or to the linked section (home).
+window.addEventListener('hashchange', () => {
+  if (pageNow() === page) return
+  page = pageNow()
+  render()
+  const target = page === 'home' && location.hash.length > 1 ? document.getElementById(location.hash.slice(1)) : null
+  if (target) target.scrollIntoView()
+  else window.scrollTo(0, 0)
 })
 
 render()
